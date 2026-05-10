@@ -64,7 +64,7 @@ function loadBackground() {
   bgImage.onload = () => {
     bgImageReady = true;
   };
-  bgImage.src = "../output/flower_recolored.png";
+  bgImage.src = "./flower.png";
 }
 
 function getSceneScale() {

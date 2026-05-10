@@ -2,13 +2,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import shutil
 
 import numpy as np
-
 
 ROOT = Path(__file__).resolve().parents[1]
 PATH_JSON = ROOT / "output" / "flower_path.json"
 OUTPUT_JS = Path(__file__).resolve().parent / "flower-data.js"
+
+IMAGE_SRC = ROOT / "output" / "flower_recolored.png"
+IMAGE_DEST = Path(__file__).resolve().parent / "flower.png"
 
 
 def transform_points(points: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
@@ -24,6 +27,8 @@ def transform_points(points: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]
 
 
 def main() -> None:
+    shutil.copy(IMAGE_SRC, IMAGE_DEST)
+
     points = np.array(json.loads(PATH_JSON.read_text(encoding="utf-8")), dtype=float)
     transformed, center, max_size = transform_points(points)
 
