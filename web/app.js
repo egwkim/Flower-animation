@@ -9,6 +9,9 @@ const zoomBtn = document.getElementById("zoomBtn");
 const zoomRange = document.getElementById("zoomRange");
 const zoomLabel = document.getElementById("zoomLabel");
 const fadeBtn = document.getElementById("fadeBtn");
+const panel = document.querySelector('.panel');
+const panelToggle = document.getElementById('panelToggle');
+const PANEL_KEY = 'panelFolded';
 
 const TAU = Math.PI * 2;
 const backgroundColor = "rgba(255, 255, 255, 0.9)";
@@ -529,6 +532,35 @@ fadeBtn.addEventListener("click", () => {
   isFadingEnabled = !isFadingEnabled;
   fadeBtn.textContent = isFadingEnabled ? "Fade Off" : "Fade On";
 });
+
+function setPanelFolded(folded, persist = true) {
+  if (!panel) return;
+  panel.classList.toggle('folded', !!folded);
+  if (panelToggle) {
+    panelToggle.setAttribute('aria-expanded', String(!folded));
+    panelToggle.textContent = folded ? '▸' : '▾';
+  }
+  try {
+    if (persist) localStorage.setItem(PANEL_KEY, !!folded ? '1' : '0');
+  } catch (e) {
+    // ignore storage errors
+  }
+}
+
+if (panelToggle) {
+  panelToggle.addEventListener('click', () => {
+    const folded = panel.classList.contains('folded');
+    setPanelFolded(!folded);
+  });
+}
+
+// Restore panel folded state on load (use localStorage)
+try {
+  const saved = localStorage.getItem(PANEL_KEY);
+  if (saved === '1') setPanelFolded(true, false);
+} catch (e) {
+  // ignore
+}
 
 window.addEventListener("resize", () => {
   resizeCanvas();
