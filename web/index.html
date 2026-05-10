@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flower Fourier Animation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="backdrop"></div>
+
+      <canvas id="scene" aria-label="Flower animation canvas"></canvas>
+
+      <section class="panel">
+        <div>
+          <p class="eyebrow">Fourier drawing</p>
+          <h1>Flower animation in the browser</h1>
+          <p class="summary">
+            The path is reconstructed from precomputed Fourier coefficients and
+            traced in real time.
+          </p>
+        </div>
+
+        <div class="controls">
+          <button id="toggleBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+
+        <label class="speed-control" for="speedRange">
+          <span>Speed</span>
+          <input id="speedRange" type="range" min="0.1" max="4" value="1" step="0.05" />
+        </label>
+
+        <br>
+
+        <button id="zoomBtn" type="button">Zoom</button>
+
+        <label class="zoom-control" id="zoomLabel" for="zoomRange" style="display: none;">
+          <span>Zoom Factor</span>
+          <input id="zoomRange" type="range" min="1" max="100" value="2" step="0.5" />
+        </label>
+
+        <br><br>
+
+        <button id="fadeBtn" type="button">Fade Off</button>
+
+        <div class="stats">
+          <span id="statusText">Running</span>
+          <span id="progressText">0%</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="flower-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
